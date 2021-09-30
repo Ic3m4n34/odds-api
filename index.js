@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+const chromium = require('chrome-aws-lambda');
 const bodyParser = require('body-parser');
 const cheerio = require('cheerio');
 const express = require('express');
@@ -21,7 +21,7 @@ app.get('/get-bundesliga-odds', async (req, res) => {
     res.send(gamedayCache.get(collectionName));
   } else {
   } */
-  const browser = await puppeteer.launch({
+  const browser = await chromium.puppeteer.launch({
       headless: true,
     });
     const page = await browser.newPage();
