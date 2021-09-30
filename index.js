@@ -48,6 +48,27 @@ app.get('/', (req, res) => {
   res.send('welcome');
 });
 
+app.get('/get-bundesliga-picks', (req, res) => {
+  const today = new Date();
+  const date = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+  const data = gamedayCache.get(date);
+  const { currentGameday } = data;
+
+  currentGameday.forEach((match) => {
+    const getPick = () => {
+      if (match.drawQuote <= 2.0) return '1:1';
+      if (match.homeTeamQuote < match.awayTeamQuote) return '2:1';
+      return '1:2'
+    };
+    console.log('Match:', `${match.homeTeamName} (${match.homeTeamQuote}) - ${match.awayTeamName} (${match.awayTeamQuote})`);
+    console.log(getPick());
+    console.log('###################################');
+    console.log('###################################');
+  });
+
+  res.send(currentGameday)
+});
+
 app.get('/get-bundesliga-odds', async (req, res) => {
   const today = new Date();
   const date = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
