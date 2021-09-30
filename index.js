@@ -1,4 +1,4 @@
-const Apify = require('apify');
+const puppeteer = require('puppeteer');
 const bodyParser = require('body-parser');
 const cheerio = require('cheerio');
 const express = require('express');
@@ -21,12 +21,8 @@ app.get('/get-bundesliga-odds', async (req, res) => {
     res.send(gamedayCache.get(collectionName));
   } else {
   } */
-  const browser = await Apify.launchPuppeteer({
-      useChrome: true,
-      stealth: true,
-      launchOptions: {
-        headless: true,
-      },
+  const browser = await puppeteer.launch({
+      headless: true,
     });
     const page = await browser.newPage();
 
