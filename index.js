@@ -45,13 +45,14 @@ const port = 3000;
 app.use(bodyParser.json());
 
 app.get('/get-bundesliga-odds', async (req, res) => {
+  const today = new Date();
+  const date = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
   const isDev = process.env.NODE_ENV === 'development';
-  /* if (gamedayCache.get(collectionName)) {
-    res.send(gamedayCache.get(collectionName));
+  if (gamedayCache.get(date)) {
+    res.send(gamedayCache.get(date));
   } else {
-  } */
-  const options = await getOptions(isDev);
-  const browser = await puppeteer.launch(options);
+    const options = await getOptions(isDev);
+    const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
 
     await page.goto('https://sports.tipico.de/de/alle/fussball/deutschland/bundesliga');
@@ -83,14 +84,16 @@ app.get('/get-bundesliga-odds', async (req, res) => {
     const currentGameday = allMatches.slice(0, 9);
     const futureGameday = allMatches.slice(9, 18);
 
-    // const hash = sha256(JSON.stringify({currentGameday, futureGameday}));
-
-    // gamedayCache.set(collectionName, returnValues);
+    gamedayCache.set(date, {
+      currentGameday,
+      futureGameday,
+    });
 
     res.send({
       currentGameday,
       futureGameday,
     });
+  }
 });
 
 app.listen(port, async () => {
