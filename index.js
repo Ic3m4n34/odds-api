@@ -1,4 +1,5 @@
-const chromium = require('chrome-aws-lambda');
+const puppeteer = require('puppeteer-core');
+const chrome = require("chrome-aws-lambda");
 const bodyParser = require('body-parser');
 const cheerio = require('cheerio');
 const express = require('express');
@@ -6,10 +7,37 @@ const sha256 = require('js-sha256');
 
 const NodeCache = require('node-cache');
 
+require('dotenv').config();
+
 const gamedayCache = new NodeCache({
   stdTTL: 3600,
   checkperiod: 600,
 });
+
+const exePath =
+  process.platform === "win32"
+    ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+    : process.platform === "linux"
+    ? "/usr/bin/google-chrome"
+    : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+
+getOptions = async (isDev) => {
+  let options;
+  if (isDev) {
+    options = {
+      args: [],
+      executablePath: exePath,
+      headless: true,
+    };
+  } else {
+    options = {
+      args: chrome.args,
+      executablePath: await chrome.executablePath,
+      headless: chrome.headless,
+    };
+  }
+  return options;
+}
 
 const app = express();
 const port = 3000;
@@ -17,13 +45,13 @@ const port = 3000;
 app.use(bodyParser.json());
 
 app.get('/get-bundesliga-odds', async (req, res) => {
+  const isDev = process.env.NODE_ENV === 'development';
   /* if (gamedayCache.get(collectionName)) {
     res.send(gamedayCache.get(collectionName));
   } else {
   } */
-  const browser = await chromium.puppeteer.launch({
-      headless: true,
-    });
+  const options = await getOptions(isDev);
+  const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
 
     await page.goto('https://sports.tipico.de/de/alle/fussball/deutschland/bundesliga');

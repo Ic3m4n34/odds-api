@@ -492,6 +492,11 @@ domutils@^2.5.2, domutils@^2.6.0, domutils@^2.7.0:
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
 
+dotenv@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
+  integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -1649,10 +1654,10 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-puppeteer@^10.4.0:
+puppeteer-core@^10.4.0:
   version "10.4.0"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-10.4.0.tgz#a6465ff97fda0576c4ac29601406f67e6fea3dc7"
-  integrity sha512-2cP8mBoqnu5gzAVpbZ0fRaobBWZM8GEUF4I1F6WbgHrKV/rz7SX8PG2wMymZgD0wo0UBlg2FBPNxlF/xlqW6+w==
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-10.4.0.tgz#4e2da57c52339b8c07cd9362922020eb3c3c95bf"
+  integrity sha512-KU8zyb7AIOqNjLCN3wkrFXxh+EVaG+zrs2P03ATNjc3iwSxHsu5/EvZiREpQ/IJiT9xfQbDVgKcsvRuzLCxglQ==
   dependencies:
     debug "4.3.1"
     devtools-protocol "0.0.901419"
