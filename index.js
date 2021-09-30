@@ -44,6 +44,10 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+  res.send('welcome');
+});
+
 app.get('/get-bundesliga-odds', async (req, res) => {
   const today = new Date();
   const date = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
